@@ -18,13 +18,13 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 500);
+  createCanvas(1100, 600);
   
   // Refresh live data every 5 minutes (300,000 ms)
   if (!USE_OFFLINE_MOCK) {
     setInterval(() => {
       loadJSON(PROXY_URL, onDataLoaded, onError);
-    }, 300000);
+    }, 1000);
   }
 }
 
@@ -58,12 +58,14 @@ function draw() {
     // Example fields commonly found in sensor data:
     let temp = aquariumData[0].exps.temperature.curr;
     let ph = aquariumData[0].exps.ph.curr;
-    let nh3 = aquariumData.nh3 || 100;
+    let nh3 = aquariumData[0].exps.nh3.curr; 
+    let o2 = aquariumData[0].exps.o2.curr;
 
     // Call your custom graphic widgets
     drawTempWidget(50, 120, temp);
     drawGaugeWidget(300, 120, "pH Level", ph, 6.0, 8.5);
     drawGaugeWidget(550, 120, "Ammonia (NH3)", nh3, 0.0, 0.05);
+    drawGaugeWidget(800, 120, "Oxygen (O2)", o2);
 
   } else {
     // Loading State
