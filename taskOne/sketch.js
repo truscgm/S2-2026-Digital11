@@ -39,7 +39,7 @@ function onError(err) {
 }
 
 function draw() {
-  background(20, 30, 45); // Dark blue aquarium background
+  background(17, 82, 190); // Dark blue aquarium background
 
   // 1. Draw Title Header
   fill(255);
@@ -66,6 +66,12 @@ function draw() {
     drawGaugeWidget(300, 120, "pH Level", ph, 6.0, 8.5);
     drawGaugeWidget(550, 120, "Ammonia (NH3)", nh3, 0.0, 0.05);
     drawGaugeWidget(800, 120, "Oxygen (O2)", o2);
+    // if (aquariumData[0].exps.ph.status == "1") {
+      textSize(12);
+      fill(150, 200, 2);
+      text("Warning");
+    // }
+
 
   } else {
     // Loading State
@@ -89,7 +95,7 @@ function drawTempWidget(x, y, tempVal) {
   text("Water Temp", x + 15, y + 15);
 
   // Value Display
-  fill(100, 220, 255);
+  fill(192, 192, 192);
   textSize(36);
   text(tempVal + "°C", x + 15, y + 50);
 }
@@ -105,7 +111,11 @@ function drawGaugeWidget(x, y, label, val, minVal, maxVal) {
   textSize(14);
   text(label, x + 15, y + 15);
 
-  fill(255);
+  fill(192, 192, 192);
   textSize(28);
   text(val, x + 15, y + 50);
+
+  fill(150, 200, 2);
+  textSize(28);
+  // text("Water Temp", x + 15, y + 15);
 }
