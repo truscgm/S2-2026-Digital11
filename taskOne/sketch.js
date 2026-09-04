@@ -63,15 +63,29 @@ function draw() {
 
     // Call your custom graphic widgets
     drawTempWidget(50, 120, temp);
-    drawGaugeWidget(300, 120, "pH Level", ph, 6.0, 8.5);
-    drawGaugeWidget(550, 120, "Ammonia (NH3)", nh3, 0.0, 0.05);
+    drawGaugeWidget(300, 120, "pH Level", ph);
+    drawGaugeWidget(550, 120, "Ammonia (NH3)", nh3);
     drawGaugeWidget(800, 120, "Oxygen (O2)", o2);
-    // if (aquariumData[0].exps.ph.status == "1") {
-      textSize(12);
-      fill(150, 200, 2);
-      text("Warning");
+    //  if (aquariumData[0].exps.ph.status == "1") {
+    //   textSize(40);
+    //   fill("red");
+    //   text("WARNING", 305, 214);
+    //  }
+    //  if (aquariumData[0].exps.nh3.status == "1") {
+    //   textSize(40);
+    //   fill("red");
+    //   text("WARNING", 555, 214);
     // }
-
+    //  if (aquariumData[0].exps.o2.status == "1") {
+    //   textSize(40);
+    //   fill("red");
+    //   text("WARNING", 805, 214);
+    //  }
+    //  if (aquariumData[0].exps.temperature.status == "1") {
+    //   textSize(40);
+    //   fill("red");
+    //   text("WARNING", 55, 214);
+    //  }
 
   } else {
     // Loading State
@@ -98,10 +112,11 @@ function drawTempWidget(x, y, tempVal) {
   fill(192, 192, 192);
   textSize(36);
   text(tempVal + "°C", x + 15, y + 50);
+  if (label == "")
 }
 
 // Example Widget Function: Simple Bar Gauge
-function drawGaugeWidget(x, y, label, val, minVal, maxVal) {
+function drawGaugeWidget(x, y, label, val) {
   fill(35, 48, 68);
   stroke(60, 80, 110);
   rect(x, y, 200, 150, 10);
@@ -115,7 +130,26 @@ function drawGaugeWidget(x, y, label, val, minVal, maxVal) {
   textSize(28);
   text(val, x + 15, y + 50);
 
-  fill(150, 200, 2);
-  textSize(28);
-  // text("Water Temp", x + 15, y + 15);
+  if (label == "pH Level"){
+    if (aquariumData[0].exps.ph.status == "1") {
+      textSize(40);
+      fill("red");
+      text("WARNING", x + 5, y + 100);
+    }
+  }
+  else if (label == "Ammonia (NH3)"){
+    if (aquariumData[0].exps.nh3.status == "1") {
+      textSize(40);
+      fill("red");
+      text("WARNING", x + 5, y + 100);
+    }
+  }
+  else if (label == "Oxygen (O2)"){
+    if (aquariumData[0].exps.o2.status == "1") {
+      textSize(40);
+      fill("red");
+      text("WARNING", x + 5, y + 100);
+    }
+  }
+  
 }
