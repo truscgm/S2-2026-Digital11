@@ -18,7 +18,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1100, 600);
+  createCanvas(windowWidth, windowHeight);
   
   // Refresh live data every 5 minutes (300,000 ms)
   if (!USE_OFFLINE_MOCK) {
@@ -62,31 +62,10 @@ function draw() {
     let o2 = aquariumData[0].exps.o2.curr;
 
     // Call your custom graphic widgets
-    drawTempWidget(50, 120, temp);
-    drawGaugeWidget(300, 120, "pH Level", ph);
-    drawGaugeWidget(550, 120, "Ammonia (NH3)", nh3);
-    drawGaugeWidget(800, 120, "Oxygen (O2)", o2);
-    //  if (aquariumData[0].exps.ph.status == "1") {
-    //   textSize(40);
-    //   fill("red");
-    //   text("WARNING", 305, 214);
-    //  }
-    //  if (aquariumData[0].exps.nh3.status == "1") {
-    //   textSize(40);
-    //   fill("red");
-    //   text("WARNING", 555, 214);
-    // }
-    //  if (aquariumData[0].exps.o2.status == "1") {
-    //   textSize(40);
-    //   fill("red");
-    //   text("WARNING", 805, 214);
-    //  }
-    //  if (aquariumData[0].exps.temperature.status == "1") {
-    //   textSize(40);
-    //   fill("red");
-    //   text("WARNING", 55, 214);
-    //  }
-
+    drawGaugeWidget(width / 5 - 100, 120, "Water Temp", temp);
+    drawGaugeWidget(2 * width / 5 - 100, 120, "pH Level", ph);
+    drawGaugeWidget(3 * width / 5 - 100, 120, "Ammonia (NH3)", nh3);
+    drawGaugeWidget(4 * width / 5 - 100, 120, "Oxygen (O2)", o2);
   } else {
     // Loading State
     fill(255, 100, 100);
@@ -94,31 +73,11 @@ function draw() {
     text("Connecting to sensor stream...", 30, 120);
   }
 }
-
-// Example Widget Function: Temperature Card
-function drawTempWidget(x, y, tempVal) {
-  // Background Card
-  fill(35, 48, 68);
-  stroke(60, 80, 110);
-  rect(x, y, 200, 150, 10);
-
-  // Label
-  noStroke();
-  fill(180, 200, 220);
-  textSize(14);
-  text("Water Temp", x + 15, y + 15);
-
-  // Value Display
-  fill(192, 192, 192);
-  textSize(36);
-  text(tempVal + "°C", x + 15, y + 50);
-  if (label == "")
-}
-
 // Example Widget Function: Simple Bar Gauge
 function drawGaugeWidget(x, y, label, val) {
   fill(35, 48, 68);
-  stroke(60, 80, 110);
+  strokeWeight(3);
+  stroke("black");
   rect(x, y, 200, 150, 10);
 
   noStroke();
@@ -132,24 +91,30 @@ function drawGaugeWidget(x, y, label, val) {
 
   if (label == "pH Level"){
     if (aquariumData[0].exps.ph.status == "1") {
-      textSize(40);
+      textSize(38);
       fill("red");
-      text("WARNING", x + 5, y + 100);
+      text("WARNING!", x + 5, y + 100);
     }
   }
   else if (label == "Ammonia (NH3)"){
     if (aquariumData[0].exps.nh3.status == "1") {
-      textSize(40);
+      textSize(38);
       fill("red");
-      text("WARNING", x + 5, y + 100);
+      text("WARNING!", x + 5, y + 100);
     }
   }
   else if (label == "Oxygen (O2)"){
     if (aquariumData[0].exps.o2.status == "1") {
-      textSize(40);
+      textSize(38);
       fill("red");
-      text("WARNING", x + 5, y + 100);
+      text("WARNING!", x + 5, y + 100);
     }
   }
-  
+  else if (label == "Water Temp"){
+    if (aquariumData[0].exps.temperature.status == "1") {
+      textSize(38);
+      fill("red");
+      text("WARNING!", x + 5, y+ 100);
+    }
+  }
 }
